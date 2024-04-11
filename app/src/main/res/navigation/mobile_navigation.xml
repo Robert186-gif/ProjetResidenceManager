@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/nav_acceuil"
-        android:name="ca.ulaval.ima.residencemanager.ui.profil.ProfilFragment"
+        android:name="ca.ulaval.ima.residencemanager.ui.acceuil.AcceuilFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_profil" />
+        tools:layout="@layout/fragment_acceuil" />
 
     <fragment
         android:id="@+id/nav_profil"
-        android:name="ca.ulaval.ima.residencemanager.ui.acceuil.AcceuilFragment"
+        android:name="ca.ulaval.ima.residencemanager.ui.profil.ProfilFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_acceuil" />
+        tools:layout="@layout/fragment_profil" />
 
     <fragment
         android:id="@+id/nav_bail"
