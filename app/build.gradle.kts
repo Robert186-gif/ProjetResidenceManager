@@ -57,6 +57,8 @@ dependencies {
 
     implementation("io.coil-kt:coil:1.1.1")
 
+    implementation("com.github.Dhaval2404:imagepicker:v2.1")
+
     implementation("com.vanniktech:android-image-cropper:4.5.0")
 
 }

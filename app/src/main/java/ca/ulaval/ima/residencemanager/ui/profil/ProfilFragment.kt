@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
 import coil.load
 import coil.transform.CircleCropTransformation
+import com.canhub.cropper.CropImage
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
