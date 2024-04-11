@@ -1,4 +1,4 @@
-package ca.ulaval.ima.residencemanager.ui.home
+package ca.ulaval.ima.residencemanager.ui.bail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ca.ulaval.ima.residencemanager.databinding.FragmentHomeBinding
+import ca.ulaval.ima.residencemanager.databinding.FragmentBailBinding
 
-class HomeFragment : Fragment() {
+class BailFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentBailBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,14 +22,14 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val bailViewModel =
+            ViewModelProvider(this).get(BailViewModel::class.java)
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentBailBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textSlideshow
+        bailViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
