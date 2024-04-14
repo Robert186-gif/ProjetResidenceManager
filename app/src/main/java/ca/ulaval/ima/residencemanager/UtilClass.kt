@@ -13,12 +13,13 @@ data class Etudiant(
     val urlPhotoEtudiant: String?,
     val contratBail: String?,
     val ChambreReserver: Int,
-    val mesAnnonces : List<Annonce>,
-    val mesPanne : List<Panne>,
+    val mesAnnonces : List<String>,
+    val mesPanne : List<String>,
 
 )
 
 data class Annonce(
+    val idAnnonce: String?,
     val nomProduit: String?,
     val telephone: String?,
     val prix: Int,
@@ -29,6 +30,7 @@ data class Annonce(
 )
 
 data class Panne(
+    val idPanne: String?,
     val typePanne: String?,
     val niveauUrgence: String?,
     val imagePanne: String?,

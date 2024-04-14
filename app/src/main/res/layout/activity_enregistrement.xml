@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/enregistrement"
+    tools:context=".EnregistrementActivity">
+
+
+    <TextView
+        android:id="@+id/texteConnection"
+        android:layout_width="301dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="16dp"
+        android:text="Vous avez deja un compte? connectez vous"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.718"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/confirmmMotDepass"
+        android:layout_width="258dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="24dp"
+        android:background="@android:color/white"
+        android:hint="Corfimer Mot de pass"
+        android:inputType="textPassword"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSoumettre"
+        app:layout_constraintEnd_toEndOf="@+id/buttonSoumettre"
+        app:layout_constraintHorizontal_bias="0.292"
+        app:layout_constraintStart_toStartOf="@+id/buttonSoumettre"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/idNomtexte"
+        android:layout_width="249dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/white"
+        android:hint="Nom"
+        android:inputType="textEmailAddress"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/idPreNomText"
+        app:layout_constraintEnd_toEndOf="@+id/idPreNomText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/idPreNomText"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSoumettre"
+        android:layout_width="173dp"
+        android:layout_height="47dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Soumettre"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/texteConnection"
+        app:layout_constraintEnd_toEndOf="@+id/texteConnection"
+        app:layout_constraintHorizontal_bias="0.382"
+        app:layout_constraintStart_toStartOf="@+id/texteConnection"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/idPreNomText"
+        android:layout_width="249dp"
+        android:layout_height="34dp"
+        android:layout_marginBottom="28dp"
+        android:background="@android:color/white"
+        android:hint="Prenom"
+        android:inputType="textEmailAddress"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/idemailtexte"
+        app:layout_constraintEnd_toEndOf="@+id/idemailtexte"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="@+id/idemailtexte"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/idChambretexte"
+        android:layout_width="245dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/white"
+        android:hint="Numero chambre"
+
+        android:inputType="textEmailAddress"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/idNomtexte"
+        app:layout_constraintEnd_toEndOf="@+id/idNomtexte"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/idNomtexte"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/passwordTexte"
+        android:layout_width="256dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/white"
+        android:hint="Taper mot de passe"
+        android:inputType="textPassword"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/confirmmMotDepass"
+        app:layout_constraintEnd_toEndOf="@+id/confirmmMotDepass"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="@+id/confirmmMotDepass"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/idemailtexte"
+        android:layout_width="247dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="16dp"
+        android:background="@android:color/white"
+        android:hint="entrer Email"
+        android:inputType="textEmailAddress"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/passwordTexte"
+        app:layout_constraintEnd_toEndOf="@+id/passwordTexte"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordTexte"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,4 @@
+/*
 package ca.ulaval.ima.residencemanager.ui.profil
 
 import android.app.Activity.RESULT_OK
@@ -18,6 +19,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
+
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.canhub.cropper.CropImage
@@ -26,7 +28,6 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-
 class ProfilFragment : Fragment() {
 
     private var _binding: FragmentProfilBinding? = null
@@ -135,4 +136,6 @@ class ProfilFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
+*/
