@@ -1,21 +1,24 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.gms.google-services")
+
 }
 
 android {
     namespace = "ca.ulaval.ima.residencemanager"
     compileSdk = 34
+    buildToolsVersion = "34.0.0"
 
     defaultConfig {
         applicationId = "ca.ulaval.ima.residencemanager"
         minSdk = 21
         targetSdk = 34
+        multiDexEnabled = true
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -44,6 +47,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
@@ -55,14 +59,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("com.squareup.picasso:picasso:2.5.2")
-
-    implementation("com.karumi:dexter:6.2.2")
-
-    implementation("io.coil-kt:coil:1.1.1")
-
-    implementation("com.github.Dhaval2404:imagepicker:v2.1")
-
+    implementation("androidx.multidex:multidex:2.0.1") //enter the latest version
+    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.karumi:dexter:6.2.3")
+    implementation("io.coil-kt:coil:2.6.0")
     implementation("com.vanniktech:android-image-cropper:4.5.0")
 
 }

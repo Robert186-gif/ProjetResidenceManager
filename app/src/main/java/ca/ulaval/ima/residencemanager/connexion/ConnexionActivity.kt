@@ -1,4 +1,4 @@
-package ca.ulaval.ima.residencemanager.Connexion
+package ca.ulaval.ima.residencemanager.connexion
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +51,5 @@ class ConnexionActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
     }
 }

@@ -1,20 +1,15 @@
-package ca.ulaval.ima.residencemanager.Connexion
+package ca.ulaval.ima.residencemanager.connexion
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import ca.ulaval.ima.residencemanager.Annonce
 import ca.ulaval.ima.residencemanager.Etudiant
-import ca.ulaval.ima.residencemanager.Panne
 import ca.ulaval.ima.residencemanager.databinding.ActivityEnregistrementBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.time.LocalDate
 
 class EnregistrementActivity : AppCompatActivity() {
 
