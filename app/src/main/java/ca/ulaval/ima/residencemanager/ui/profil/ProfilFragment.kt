@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
@@ -16,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
@@ -26,9 +28,13 @@ import com.canhub.cropper.CropImage
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-class ProfilFragment : Fragment() {
+import com.karumi.dexter.listener.single.PermissionListener
+
+class  ProfilFragment : Fragment() {
 
     private var _binding: FragmentProfilBinding? = null
 
@@ -36,8 +42,9 @@ class ProfilFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    val REQUEST_IMAGE_CAPTURE = 100
-    lateinit var profileImage: ImageView
+    private val REQUEST_IMAGE_CAPTURE = 100
+    private val GALLERY_REQUEST_CODE = 101
+    private lateinit var profileImage: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +69,11 @@ class ProfilFragment : Fragment() {
             cameraCheckPermission()
         }
 
+        val btnGallery = binding.btnGallery
+        btnGallery.setOnClickListener{
+            galleryCheckPermission()
+        }
+
         return root
     }
 
@@ -73,6 +85,39 @@ class ProfilFragment : Fragment() {
         }catch (e: ActivityNotFoundException){
             Toast.makeText(requireContext(), "Error " + e.localizedMessage, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun takeFromGallery(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        try{
+            startActivityForResult(intent, GALLERY_REQUEST_CODE)
+        }catch (e: ActivityNotFoundException){
+            Toast.makeText(requireContext(), "Error " + e.localizedMessage, Toast.LENGTH_SHORT).show()
+            println(e.localizedMessage)
+        }
+    }
+
+    private fun galleryCheckPermission(){
+        Dexter.withContext(requireContext())
+            .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            ).withListener(object : PermissionListener {
+                override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
+                    takeFromGallery()
+                }
+
+                override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                    Toast.makeText(requireContext(), "Storage permission denied!!", Toast.LENGTH_SHORT).show()
+                    showRotationForDialogPermission()
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: PermissionRequest?,
+                    p1: PermissionToken?
+                ) {
+                    showRotationForDialogPermission()
+                }
+            }).onSameThread().check()
     }
 
     private fun cameraCheckPermission(){
@@ -120,12 +165,26 @@ class ProfilFragment : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
-            val bitmap = data?.extras?.get("data") as Bitmap
-            profileImage.load(bitmap){
-                crossfade(true)
-                crossfade(1000)
-                transformations(CircleCropTransformation())
+        if (resultCode == RESULT_OK) {
+            when (requestCode) {
+                REQUEST_IMAGE_CAPTURE -> {
+                    val bitmap = data?.extras?.get("data") as Bitmap
+                    profileImage.load(bitmap) {
+                        crossfade(true)
+                        crossfade(1000)
+                        transformations(CircleCropTransformation())
+                    }
+                }
+
+                GALLERY_REQUEST_CODE -> {
+                    val bitmap = data?.data
+                    profileImage.load(bitmap) {
+                        crossfade(true)
+                        crossfade(1000)
+                        transformations(CircleCropTransformation())
+                    }
+                }
+
             }
         }
         else{
