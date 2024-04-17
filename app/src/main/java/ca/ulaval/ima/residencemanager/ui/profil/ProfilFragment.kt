@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ca.ulaval.ima.residencemanager.R
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
 
 import coil.load
@@ -64,6 +65,7 @@ class  ProfilFragment : Fragment() {
 
         profileImage = binding.profileImage
 
+        //Tu appuies sur le bouton prendre une photo
         val btnPrendrePhoto = binding.btnTakePhoto
         btnPrendrePhoto.setOnClickListener{
             cameraCheckPermission()
@@ -74,7 +76,25 @@ class  ProfilFragment : Fragment() {
             galleryCheckPermission()
         }
 
+        profileImage.setOnClickListener{
+            val imageDialog = AlertDialog.Builder(requireContext())
+            imageDialog.setTitle("Action")
+            val imageDialogItem = arrayOf("A partir de la gallerie", "A partir de la camera", "enlever la photo")
+            imageDialog.setItems(imageDialogItem){ _, which ->
+                when(which){
+                    0 -> galleryCheckPermission()
+                    1 -> cameraCheckPermission()
+                    2 -> removePhoto()
+                }
+            }
+            imageDialog.show()
+        }
+
         return root
+    }
+
+    private fun removePhoto(){
+        profileImage.setImageResource(R.drawable.ic_profile)
     }
 
     private fun takePhoto()
@@ -94,7 +114,6 @@ class  ProfilFragment : Fragment() {
             startActivityForResult(intent, GALLERY_REQUEST_CODE)
         }catch (e: ActivityNotFoundException){
             Toast.makeText(requireContext(), "Error " + e.localizedMessage, Toast.LENGTH_SHORT).show()
-            println(e.localizedMessage)
         }
     }
 
