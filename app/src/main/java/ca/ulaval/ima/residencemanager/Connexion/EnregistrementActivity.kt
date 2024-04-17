@@ -1,5 +1,6 @@
 package ca.ulaval.ima.residencemanager.Connexion
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +66,7 @@ class EnregistrementActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun saveDataEtudiant() {
         val name = binding.idPreNomText.text.toString()
         val numChambre = (binding.idChambretexte.text.toString()).toInt()

@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "400126078878",
+    "firebase_url": "https://residencemanager-89579-default-rtdb.firebaseio.com",
+    "project_id": "residencemanager-89579",
+    "storage_bucket": "residencemanager-89579.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400126078878:android:869e69dfbdc4cf294c308f",
+        "android_client_info": {
+          "package_name": "ca.ulaval.ima.connexion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr9qaEw139OlSSwnEPMVaAl35yr6EtxvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400126078878:android:42dc90891b658c754c308f",
+        "android_client_info": {
+          "package_name": "ca.ulaval.ima.residencemanager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr9qaEw139OlSSwnEPMVaAl35yr6EtxvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
