@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Market.Market"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/texte_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="    Le Moins Cher  pour
+        les Etudiants en residence"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints" />
+
+    <ListView
+        android:id="@+id/list_view_annonces"
+        android:layout_width="match_parent"
+        android:layout_height="539dp"
+        android:layout_weight="1"
+        android:background="#D3D3D3"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="233dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="203dp"
+        android:layout_height="71dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/baseline_control_point_24"
+        android:text="Button" />
+
+
+</LinearLayout>

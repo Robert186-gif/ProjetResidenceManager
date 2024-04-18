@@ -1,4 +1,4 @@
-/*
+
 package ca.ulaval.ima.residencemanager.ui.profil
 
 import android.app.Activity.RESULT_OK
@@ -138,4 +138,3 @@ class ProfilFragment : Fragment() {
     }
 
 }
-*/
