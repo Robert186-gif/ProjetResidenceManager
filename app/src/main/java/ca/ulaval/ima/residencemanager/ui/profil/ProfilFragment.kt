@@ -1,6 +1,7 @@
 
 package ca.ulaval.ima.residencemanager.ui.profil
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
@@ -57,14 +58,14 @@ class  ProfilFragment : Fragment() {
         _binding = FragmentProfilBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
+        val textView: TextView = binding.textUser
         profilViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
 
         profileImage = binding.profileImage
 
-        storagePermission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        storagePermission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
         //Tu appuies sur le bouton prendre une photo
         val btnPrendrePhoto = binding.btnTakePhoto
@@ -121,7 +122,7 @@ class  ProfilFragment : Fragment() {
     private fun galleryCheckPermission(){
         Dexter.withContext(requireContext())
             .withPermission(
-                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
             ).withListener(object : PermissionListener {
                 override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
                     takeFromGallery()
@@ -143,8 +144,9 @@ class  ProfilFragment : Fragment() {
 
     private fun cameraCheckPermission(){
         Dexter.withContext(requireContext())
-            .withPermissions(android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                android.Manifest.permission.CAMERA).withListener(
+            .withPermissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA).withListener(
                     object : MultiplePermissionsListener{
                         override fun onPermissionsChecked(p0: MultiplePermissionsReport?) {
                             p0?.let{
