@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 
 }
 
@@ -63,6 +64,8 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.karumi:dexter:6.2.3")
     implementation("io.coil-kt:coil:2.6.0")
+    implementation("com.github.Dhaval2404:imagepicker:v2.1")
     implementation("com.vanniktech:android-image-cropper:4.5.0")
+
 
 }

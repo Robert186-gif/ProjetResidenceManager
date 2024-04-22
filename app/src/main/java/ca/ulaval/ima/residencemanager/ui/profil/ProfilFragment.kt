@@ -7,7 +7,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
@@ -17,15 +16,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresExtension
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import ca.ulaval.ima.residencemanager.R
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
-
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.canhub.cropper.CropImage
+import com.canhub.cropper.CropImageView.Guidelines
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -34,6 +32,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
+
 
 class  ProfilFragment : Fragment() {
 
@@ -46,7 +45,7 @@ class  ProfilFragment : Fragment() {
     private val REQUEST_IMAGE_CAPTURE = 100
     private val GALLERY_REQUEST_CODE = 101
     private lateinit var profileImage: ImageView
-
+    private var storagePermission: Array<String>? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -64,6 +63,8 @@ class  ProfilFragment : Fragment() {
         }
 
         profileImage = binding.profileImage
+
+        storagePermission = arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
         //Tu appuies sur le bouton prendre une photo
         val btnPrendrePhoto = binding.btnTakePhoto
@@ -119,7 +120,8 @@ class  ProfilFragment : Fragment() {
 
     private fun galleryCheckPermission(){
         Dexter.withContext(requireContext())
-            .withPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            .withPermission(
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
             ).withListener(object : PermissionListener {
                 override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
                     takeFromGallery()
