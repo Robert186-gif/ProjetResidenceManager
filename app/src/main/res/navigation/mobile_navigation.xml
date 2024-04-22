@@ -22,4 +22,28 @@
         android:name="ca.ulaval.ima.residencemanager.ui.bail.BailFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_bail" />
+
+    <fragment
+        android:id="@+id/nav_paiement"
+        android:name="ca.ulaval.ima.residencemanager.ui.paiement.PaiementFragment"
+        android:label="Paiement"
+        tools:layout="@layout/fragment_paiement" />
+
+    <fragment
+        android:id="@+id/nav_panne"
+        android:name="ca.ulaval.ima.residencemanager.ui.panne.PanneFragment"
+        android:label="Panne"
+        tools:layout="@layout/fragment_panne" />
+
+    <fragment
+        android:id="@+id/nav_reservation"
+        android:name="ca.ulaval.ima.residencemanager.ui.reservation.ReservationFragment"
+        android:label="Reservation"
+        tools:layout="@layout/fragment_reservation" />
+
+    <fragment
+        android:id="@+id/nav_market"
+        android:name="ca.ulaval.ima.residencemanager.ui.market.Market"
+        android:label="Market"
+        tools:layout="@layout/fragment_market" />
 </navigation>

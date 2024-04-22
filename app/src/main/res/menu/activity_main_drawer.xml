@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -16,5 +17,21 @@
             android:id="@+id/nav_bail"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_paiement"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Paiement" />
+        <item
+            android:id="@+id/nav_panne"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Panne" />
+        <item
+            android:id="@+id/nav_reservation"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Réservation" />
+        <item
+            android:id="@+id/nav_market"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Market" />
     </group>
 </menu>

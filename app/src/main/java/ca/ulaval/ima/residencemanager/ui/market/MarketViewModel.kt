@@ -1,4 +1,4 @@
-package ca.ulaval.ima.residencemanager.ui.Market
+package ca.ulaval.ima.residencemanager.ui.market
 
 import androidx.lifecycle.ViewModel
 
