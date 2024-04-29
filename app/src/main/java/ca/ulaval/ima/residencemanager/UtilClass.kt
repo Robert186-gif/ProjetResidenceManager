@@ -17,7 +17,7 @@ data class Etudiant(
     val nom: String? = null,
     val prenom: String? = null,
     val email: String? = null,
-    val urlPhotoEtudiant: String? = null,
+    var urlPhotoEtudiant: String? = null,
     val contratBail: String? = null,
     val ChambreReserver: Int = 0,
     val mesAnnonces : List<String> = emptyList(),
