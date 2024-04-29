@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:text="Votre email"
+            android:text="jordankamakwee@gmail.com"
             android:hint=""
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:text="VotreMotDePasse"
+            android:text="18T2747"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
