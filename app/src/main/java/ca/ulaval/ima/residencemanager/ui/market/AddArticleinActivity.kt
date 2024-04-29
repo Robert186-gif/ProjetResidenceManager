@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.RadioGroup
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
@@ -52,38 +54,12 @@ class AddArticleinActivity : AppCompatActivity() {
         val currentDate = calendar.time
         val dateFormat = SimpleDateFormat("dd-MM-yyyy")
         val DateSoumisssion = dateFormat.format(currentDate)
-
-        val nomPorduit = findViewById<TextView>(R.id.text_produit).text.toString() ;
         val nomVendeur = ""
-        val telephone = findViewById<TextView>(R.id.text_telephoneVendeur).text.toString() ;
         val description = ""
 
-
-
-        val prix = findViewById<TextView>(R.id.text_prix).text.toString().toIntOrNull() ;
-
-        Log.w("MyAppTag", "ffffffffffffffffffffffffffffffffffffffffffffffffff")
         emailDeConnexion = DataManager.userEmail
         if (emailDeConnexion != null) {
-            Log.w("MyAppTag", "ffffffffffffffffffffffffffffffffffffffffffffffffff")
         }
-
-        val annonce =
-                Annonce(
-                    NomAnnonceur =  "url_to_image.jpg",
-                    idDemandeSelec = Random.nextInt(),
-                    idAnnonce = emailDeConnexion,
-                    nomProduit = "url_to_image.jpg",
-                    telephone = telephone,
-                    prix = 7,
-                    estDiscutable = estCocher,
-                    imageProduit = "url_to_image.jpg",
-                    dsecription = description,
-                    dateMiseEnLigne =  DateSoumisssion   ,
-
-                    )
-
-
 
         val etudiantList = mutableListOf<Etudiant>()
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -103,40 +79,60 @@ class AddArticleinActivity : AppCompatActivity() {
         monBouton.setOnClickListener {
 
 
-        if (nomPorduit.isNullOrEmpty()) {
-            Toast.makeText(this, "Veuillez remplir le champs Nom produit", Toast.LENGTH_LONG).show()
-            return@setOnClickListener
-        }
+            val nomPorduit = findViewById<EditText>(R.id.text_produit).text.toString() ;
+            val telephone = findViewById<EditText>(R.id.text_telephoneVendeur).text.toString() ;
+            val prixString = findViewById<EditText>(R.id.text_prix).text.toString().trim() ;
+            val prix = prixString.toIntOrNull()
 
-        if (nomVendeur.isNullOrEmpty()) {
-            Toast.makeText(this, "Veuillez remplir le champs Nom vendeur", Toast.LENGTH_LONG).show()
-            return@setOnClickListener
-        }
+            val radioGroup = findViewById<RadioGroup>(R.id.radioGroupSexe)
+            radioGroup.setOnCheckedChangeListener { group, checkedId ->
+                 estCocher = when (checkedId) {
+                    R.id.radioHomme -> "NON"
+                    R.id.radioFemme -> "OUI"
+                    else -> "NON"
+                }
+            }
+
+
+
+        if (nomPorduit.isNullOrEmpty()) {
+               Toast.makeText(this, "Veuillez remplir le champs Nom produit", Toast.LENGTH_LONG).show()
+            return@setOnClickListener }
 
         if (telephone.isNullOrEmpty()) {
             Toast.makeText(this, "Veuillez remplir le champs telephone", Toast.LENGTH_LONG).show()
             return@setOnClickListener
         }
 
-        if (description.isNullOrEmpty()) {
-            Toast.makeText(this, "Veuillez remplir le champs description", Toast.LENGTH_LONG).show()
-            return@setOnClickListener
-        }
-            Log.w("MyAppTag", "sssssssssssssssssssssssssssssssssssssssssssss44444444")
-        //if (prix == null) {
-            //   Toast.makeText(this, "Veuillez remplir le champs Prix", Toast.LENGTH_LONG).show()
-            //   return@setOnClickListener
-            // }
-            Log.w("MyAppTag", "sssssssssssssssssssssssssssssssssssssssssssss555555555555555")
+
+        if (prix == null) {
+               Toast.makeText(this, "Veuillez remplir le champs Prix", Toast.LENGTH_LONG).show()
+               return@setOnClickListener
+             }
+
+
+            val annonce =
+                Annonce(
+                    NomAnnonceur = DataManager.etudiantCourant?.nom,
+                    idDemandeSelec = Random.nextInt(),
+                    idAnnonce = emailDeConnexion,
+                    nomProduit = nomPorduit,
+                    telephone = telephone,
+                    prix = prix,
+                    estDiscutable = estCocher,
+                    imageProduit = "url_to_image.jpg",
+                    dsecription = description,
+                    dateMiseEnLigne =  DateSoumisssion   ,
+
+                    )
+
+
             if (annonce != null) {
-                Log.w("MyAppTag", "sssssssssssssssssssssssssssssssssssssssssssss6666666")
                 saveDataEtudiant(annonce)
             }
         }
-       // Fin de la définition du ValueEventListener
         }
         private fun saveDataEtudiant(annonce: Annonce) {
-        Log.w("MyAppTag", "sssssssssssssssssssssssssssssssssssssssssssss1111111")
         val annonceId = firebaseRefAnonce.push().key!!
         val annoncecode = emailDeConnexion;
         firebaseRefAnonce.child(annonceId).setValue(annonce)

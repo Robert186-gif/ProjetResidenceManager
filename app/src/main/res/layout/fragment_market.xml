@@ -6,10 +6,6 @@
     tools:context=".ui.market.Market"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
 
         <Button
             android:id="@+id/button3"
@@ -17,13 +13,13 @@
             android:layout_height="wrap_content"
             android:text="mes Annobes" />
 
-        <Button
-            android:id="@+id/btn_ajouter_articl"
-            android:layout_width="203dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Ajouter" />
-    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_ajouter_articl"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Ajouter" />
 
     <ListView
         android:id="@+id/list_view_annonces"

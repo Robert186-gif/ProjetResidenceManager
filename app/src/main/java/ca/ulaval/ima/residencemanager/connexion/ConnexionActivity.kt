@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
+import ca.ulaval.ima.residencemanager.Annonce
 import ca.ulaval.ima.residencemanager.DataManager
 import ca.ulaval.ima.residencemanager.Etudiant
 import ca.ulaval.ima.residencemanager.connexion.EnregistrementActivity
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
@@ -27,19 +29,23 @@ class ConnexionActivity : AppCompatActivity() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var userViewModel: MarketViewModel
     private lateinit var firebaseDatabaseRef: DatabaseReference
+    private lateinit var firebaseDatabaseRefAnnonce: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityConnexionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         userViewModel = ViewModelProvider(this).get(MarketViewModel::class.java)
-
+        firebaseDatabaseRef = FirebaseDatabase.getInstance().getReference("Etudiant")
+        firebaseDatabaseRefAnnonce = FirebaseDatabase.getInstance().getReference("Annonces")
 
         firebaseAuth = FirebaseAuth.getInstance()
         binding.seConnecter.setOnClickListener {
             val intent = Intent(this, EnregistrementActivity::class.java)
             startActivity(intent)
         }
+
+
 
         binding.buttonConnexion.setOnClickListener {
             val email = binding.emailEt.text.toString()
@@ -52,8 +58,8 @@ class ConnexionActivity : AppCompatActivity() {
                         val intent = Intent(this, MainActivity::class.java)
                         userViewModel.setEmail(email)
                         DataManager.userEmail = email // Sauvegarde de l'email
-                        Log.w("MyAppTag", email)
-                        Log.w("MyAppTag", "email maintenantmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
+                        getDataFromFirebase()
+                        getAnnonceDataFromFirebase() // recuperation annonce
                         startActivity(intent)
                     } else {
                         Toast.makeText(this, "mot de passe ou email incorrect", Toast.LENGTH_SHORT).show()
@@ -83,7 +89,35 @@ class ConnexionActivity : AppCompatActivity() {
                         if (etudiant.email == DataManager.userEmail)
                         {
                             DataManager.etudiantCourant = etudiant
+                            Log.w("dsads", "loadPost:onCancelled")
 
+                        }
+                    }
+                }
+            }
+
+
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("dsads", "loadPost:onCancelled", databaseError.toException())
+            }
+        })
+    }
+
+
+    private fun getAnnonceDataFromFirebase()
+    {
+        //Recuperer le nom, prénom, numero de chambre et l'email
+        firebaseDatabaseRefAnnonce.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                DataManager.annonceList.clear()
+                if (dataSnapshot.exists()) {
+
+                    for (annonceSnap in dataSnapshot.children) {
+                        val annonce = annonceSnap.getValue(Annonce::class.java)
+                        if (annonce != null) {
+                            DataManager.annonceList.add(annonce)
                         }
                     }
                 }
