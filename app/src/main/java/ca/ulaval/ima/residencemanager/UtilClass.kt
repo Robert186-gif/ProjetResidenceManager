@@ -7,8 +7,8 @@ import java.util.Date
 
 object DataManager {
     var userEmail: String? = null
-    lateinit var etudiantList : ArrayList<Etudiant>
-    lateinit var etudiantCourant : Etudiant
+    var etudiantList : ArrayList<Etudiant> = ArrayList()
+    var etudiantCourant : Etudiant? = null
 }
 
 data class Etudiant(
@@ -16,7 +16,7 @@ data class Etudiant(
     val nom: String? = null,
     val prenom: String? = null,
     val email: String? = null,
-    val urlPhotoEtudiant: String? = null,
+    var urlPhotoEtudiant: String? = null,
     val contratBail: String? = null,
     val ChambreReserver: Int = 0,
     val mesAnnonces : List<String> = emptyList(),
