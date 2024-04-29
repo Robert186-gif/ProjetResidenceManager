@@ -29,6 +29,7 @@ class AddArticleinActivity : AppCompatActivity() {
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private lateinit var viewModel: MarketViewModel
+    var emailDeConnexion: String? = null;
 
 
     @SuppressLint("MissingInflatedId", "WrongViewCast")
@@ -43,7 +44,7 @@ class AddArticleinActivity : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.getReference("Etudiant")
 
-        val monBouton = findViewById<Button>(R.id.button_soumettre)
+        val monBouton = findViewById<Button>(R.id.btnSoumettre)
         var estCocher = "Non"
 
 
@@ -53,29 +54,26 @@ class AddArticleinActivity : AppCompatActivity() {
         val DateSoumisssion = dateFormat.format(currentDate)
 
         val nomPorduit = findViewById<TextView>(R.id.text_produit).text.toString() ;
-        val nomVendeur = findViewById<TextView>(R.id.textView_nom).text.toString() ;
+        val nomVendeur = ""
         val telephone = findViewById<TextView>(R.id.text_telephoneVendeur).text.toString() ;
-        val description = findViewById<TextView>(R.id.text_dsecription).text.toString() ;
-        val estDiscutable =  findViewById(R.id.switch1) as Switch ;
+        val description = ""
+
 
 
         val prix = findViewById<TextView>(R.id.text_prix).text.toString().toIntOrNull() ;
-        var emailDeConnexion: String? = null;
+
         Log.w("MyAppTag", "ffffffffffffffffffffffffffffffffffffffffffffffffff")
         emailDeConnexion = DataManager.userEmail
         if (emailDeConnexion != null) {
-            Log.w("MyAppTag", emailDeConnexion)
             Log.w("MyAppTag", "ffffffffffffffffffffffffffffffffffffffffffffffffff")
-        }
-        estDiscutable.setOnCheckedChangeListener { _, isChecked ->
-            estCocher = if (isChecked) "Oui" else "Non"
         }
 
         val annonce =
                 Annonce(
+                    NomAnnonceur =  "url_to_image.jpg",
                     idDemandeSelec = Random.nextInt(),
                     idAnnonce = emailDeConnexion,
-                    nomProduit = nomPorduit,
+                    nomProduit = "url_to_image.jpg",
                     telephone = telephone,
                     prix = 7,
                     estDiscutable = estCocher,
@@ -140,8 +138,8 @@ class AddArticleinActivity : AppCompatActivity() {
         private fun saveDataEtudiant(annonce: Annonce) {
         Log.w("MyAppTag", "sssssssssssssssssssssssssssssssssssssssssssss1111111")
         val annonceId = firebaseRefAnonce.push().key!!
-        val annoncecode = annonce.idAnnonce;
-        firebaseRefAnonce.child(annoncecode.toString()).setValue(annonce)
+        val annoncecode = emailDeConnexion;
+        firebaseRefAnonce.child(annonceId).setValue(annonce)
               .addOnCompleteListener{
               }
     }

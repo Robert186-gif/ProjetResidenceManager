@@ -21,6 +21,7 @@ data class Etudiant(
 
 
 data class Annonce(
+    val NomAnnonceur: String? = null,
     val idDemandeSelec: Int? = null,
     val idAnnonce: String? = null,
     val nomProduit: String? = null,
