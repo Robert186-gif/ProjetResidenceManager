@@ -7,10 +7,12 @@ import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +21,24 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import ca.ulaval.ima.residencemanager.Annonce
+import ca.ulaval.ima.residencemanager.DataManager
+import ca.ulaval.ima.residencemanager.Etudiant
 import ca.ulaval.ima.residencemanager.R
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.canhub.cropper.CropImage
 import com.canhub.cropper.CropImageView.Guidelines
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.color.utilities.SchemeFidelity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -33,6 +47,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
+import java.io.ByteArrayOutputStream
 
 
 class  ProfilFragment : Fragment() {
@@ -47,6 +62,13 @@ class  ProfilFragment : Fragment() {
     private val GALLERY_REQUEST_CODE = 101
     private lateinit var profileImage: ImageView
     private var storagePermission: Array<String>? = null
+
+    private lateinit var firebaseDatabaseRef: DatabaseReference
+    private lateinit var storageRef : StorageReference
+    private lateinit var etudiantList : ArrayList<Etudiant>
+    private lateinit var dataList : ArrayList<String>
+    private var uri: Uri? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -58,27 +80,34 @@ class  ProfilFragment : Fragment() {
         _binding = FragmentProfilBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textUser
-        profilViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        firebaseDatabaseRef = FirebaseDatabase.getInstance().getReference("Etudiant")
+        storageRef = FirebaseStorage.getInstance().getReference("Images")
+        etudiantList = arrayListOf()
+        dataList = arrayListOf()
+
+        getDataFromFirebase()
+
+        val userName: TextView = binding.textUser
+        if (etudiantList.size >= 1)
+        {
+            profilViewModel.getDataFromEtudiant(etudiantList[0])
         }
+        else{
+            profilViewModel.getNothing()
+        }
+
+        profilViewModel.text.observe(viewLifecycleOwner) {
+            userName.text = it
+        }
+
+        val cameraBtn = binding.cameraBtn
 
         profileImage = binding.profileImage
 
         storagePermission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-        //Tu appuies sur le bouton prendre une photo
-        val btnPrendrePhoto = binding.btnTakePhoto
-        btnPrendrePhoto.setOnClickListener{
-            cameraCheckPermission()
-        }
 
-        val btnGallery = binding.btnGallery
-        btnGallery.setOnClickListener{
-            galleryCheckPermission()
-        }
-
-        profileImage.setOnClickListener{
+        cameraBtn.setOnClickListener{
             val imageDialog = AlertDialog.Builder(requireContext())
             imageDialog.setTitle("Action")
             val imageDialogItem = arrayOf("A partir de la gallerie", "A partir de la camera", "enlever la photo")
@@ -186,25 +215,89 @@ class  ProfilFragment : Fragment() {
             }.show()
     }
 
+    private fun getImageFromFireBase(imageUrl: String)
+    {
+
+    }
+    private fun getDataFromFirebase()
+    {
+        //Recuperer le nom, prénom, numero de chambre et l'email
+        firebaseDatabaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                DataManager.etudiantList.clear()
+                if (dataSnapshot.exists()) {
+
+                    for (etudiantSnap in dataSnapshot.children) {
+                        // Get Etudiant object and use the values to update the UI
+                        val etudiant = etudiantSnap.getValue(Etudiant::class.java)
+                        etudiant?.nom?.let { Log.w("dadsa", it) }
+                        DataManager.etudiantList.add(etudiant!!)
+                        if (etudiant.email == DataManager.userEmail)
+                        {
+                            DataManager.etudiantCourant = etudiant
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("dsads", "loadPost:onCancelled", databaseError.toException())
+            }
+        })
+    }
+
+
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 REQUEST_IMAGE_CAPTURE -> {
                     val bitmap = data?.extras?.get("data") as Bitmap
-                    profileImage.load(bitmap) {
-                        crossfade(true)
-                        crossfade(1000)
-                        transformations(CircleCropTransformation())
+                    profileImage.load(bitmap){
+
+                    }
+                    val baos = ByteArrayOutputStream()
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+                    val data = baos.toByteArray()
+
+                    var etudiant : Etudiant
+                    val imageName = "image_${System.currentTimeMillis()}.jpg"
+
+                    // Create a reference to 'images/imageName.jpg'
+                    val imageRef = storageRef.child("/$imageName")
+
+                    // Upload file to Firebase Storage
+                    val uploadTask = imageRef.putBytes(data)
+                    uploadTask.addOnSuccessListener {
+                        // Image uploaded successfully
+                        // Get the download URL of the uploaded image
+                        imageRef.downloadUrl.addOnSuccessListener { uri ->
+                            val imageUrl = uri.toString()
+                            // Do something with the download URL (e.g., save it to a database)
+                            etudiant = Etudiant(9612, "JORDAN", "JORDAN", "jordankamakwee4@gmail.com",
+                                imageUrl, "", 0, emptyList(), emptyList())
+
+                            firebaseDatabaseRef.child("9612").setValue(etudiant)
+                                .addOnCompleteListener{
+                                    Toast.makeText(requireContext(), "Images data", Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener{
+                                    Toast.makeText(requireContext(), "Images not", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                            .addOnFailureListener {
+                            // Handle failures
+                        }
+                    }
+                        .addOnFailureListener {
+                        // Handle unsuccessful uploads
                     }
                 }
 
                 GALLERY_REQUEST_CODE -> {
                     val bitmap = data?.data
                     profileImage.load(bitmap) {
-                        crossfade(true)
-                        crossfade(1000)
-                        transformations(CircleCropTransformation())
                     }
                 }
 
@@ -212,6 +305,7 @@ class  ProfilFragment : Fragment() {
         }
         else{
             super.onActivityResult(requestCode, resultCode, data)
+            profileImage.setImageURI(data?.data)
         }
     }
     override fun onDestroyView() {

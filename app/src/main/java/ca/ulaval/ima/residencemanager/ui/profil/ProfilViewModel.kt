@@ -3,11 +3,22 @@ package ca.ulaval.ima.residencemanager.ui.profil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ca.ulaval.ima.residencemanager.Annonce
+import ca.ulaval.ima.residencemanager.Etudiant
+import java.util.ArrayList
 
 class ProfilViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "Robert"
+    val text: MutableLiveData<String> =  MutableLiveData()
+    fun getDataFromEtudiant(etudiant: Etudiant){
+        val nom  = etudiant.nom
+        val prenom = etudiant.prenom
+        val data = nom + prenom
+        text.postValue(data)
     }
-    val text: LiveData<String> = _text
+
+    fun getNothing()
+    {
+        text.postValue("jORDAN")
+    }
 }

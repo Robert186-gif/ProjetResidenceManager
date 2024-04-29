@@ -1,7 +1,7 @@
 package ca.ulaval.ima.residencemanager.connexion
 
-import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -68,11 +68,11 @@ class EnregistrementActivity : AppCompatActivity() {
         val prenom = binding.idPreNomText.text.toString()
         //val etudiantId = firebaseRef.push().key!!
         val etudiantId = numChambre;
-        val etudiant = Etudiant(numChambre,name , prenom , email,"","",0,emptyList(),emptyList());
-           firebaseRef.child(numChambre.toString()).setValue(etudiant)
-              .addOnCompleteListener{
-              }
-                }
+        val etudiant = Etudiant(numChambre, name, prenom , email,"","",0,emptyList(),emptyList());
+        firebaseRef.child(numChambre.toString()).setValue(etudiant)
+            .addOnCompleteListener{
+            }
+    }
   }
 
 
