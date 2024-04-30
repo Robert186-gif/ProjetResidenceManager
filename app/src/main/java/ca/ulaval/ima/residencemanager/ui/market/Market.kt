@@ -120,6 +120,7 @@ class MarketAdapter(private val context: Context, private val annonceList: List<
         lateinit var Prix_article: TextView
         lateinit var Telephone_vendeur: TextView
         lateinit var estDiscutable: TextView
+        lateinit var Nom_Produit: TextView
 
     }
 
@@ -138,6 +139,7 @@ class MarketAdapter(private val context: Context, private val annonceList: List<
             viewHolder = ViewHolder()
             viewHolder.UrlImage = view.findViewById(R.id.imageView3)
             viewHolder.NomVendeur = view.findViewById(R.id.text_nomVendeur)
+            viewHolder.Nom_Produit = view.findViewById(R.id.texte_titre)
             viewHolder.Prix_article  = view.findViewById(R.id.text_Prix_Vend)
             viewHolder.Telephone_vendeur  = view.findViewById(R.id.text_telephone_vend)
             viewHolder.estDiscutable  = view.findViewById(R.id.text_discutable_vend)
@@ -152,12 +154,13 @@ class MarketAdapter(private val context: Context, private val annonceList: List<
 
 
         viewHolder.UrlImage.setImageResource(R.drawable.bucati)
-        viewHolder.NomVendeur.text = annonce.nomProduit?.let { createStyledText("    ", it) }
+        viewHolder.NomVendeur.text = annonce.NomAnnonceur?.let { createStyledText("  Nom Vendeur :   ", it) }
         viewHolder.Prix_article.text = createStyledText("  Prix:           ", annonce.prix.toString() + "$")
+        viewHolder.Nom_Produit.text = createStyledText("    ", annonce.nomProduit.toString())
         viewHolder.Telephone_vendeur.text =
             annonce.telephone?.let { createStyledText("  Telephone:   ", it) }
         viewHolder.estDiscutable.text =
-            annonce.estDiscutable?.let { createStyledText("  Discutable                 ", it) }
+            annonce.estDiscutable?.let { createStyledText("  Discutable :                ", it) }
 
         return view
     }
