@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:text="jordankamakwee4@gmail.com"
+            android:text="jordankamakwee2@gmail.com"
             android:hint=""
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>

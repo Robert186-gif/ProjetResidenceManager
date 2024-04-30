@@ -53,35 +53,33 @@ class Market : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        firebaseRef = FirebaseDatabase.getInstance().getReference("Annonces")
+        firebaseDatabaseRefAnnonce = FirebaseDatabase.getInstance().getReference("Annonces")
 
         val view = inflater.inflate(R.layout.fragment_market, container, false)
         val addButton: Button = view.findViewById(R.id.btn_ajouter_articl)
 
         listView = view.findViewById(R.id.list_view_annonces)
+        fetchData()
         val marquesAdapter = MarketAdapter(requireContext(), DataManager.annonceList)
         listView.adapter = marquesAdapter
 
-        firebaseRef = FirebaseDatabase.getInstance().getReference("Annonces")
-        firebaseDatabaseRefAnnonce = FirebaseDatabase.getInstance().getReference("Annonces")
+
         AnnonceList = arrayListOf()
-        fetchData()
+
 
         addButton.setOnClickListener {
             val intent = Intent(activity, AddArticleinActivity::class.java)
             startActivity(intent)
         }
 
-       // binding.rvContacts.apply {
-          //  setHasFixedSize(true)
-         //   layoutManager = LinearLayoutManager(this.context)
-        //}
 
         return view
     }
 
 
     private fun fetchData() {
-        firebaseRef.addValueEventListener(object : ValueEventListener {
+        firebaseDatabaseRefAnnonce.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 AnnonceList.clear()
                 if (snapshot.exists()){
@@ -92,9 +90,8 @@ class Market : Fragment() {
                         Log.w("MyAppTag", "recuperationReussiBIENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
                         contacts.dsecription?.let { Log.w("MyAppTag", it) }
                     }
+                    (listView.adapter as? MarketAdapter)?.notifyDataSetChanged()
                 }
-                //val rvAdapter = RvContactsAdapter(AnnonceList)
-               // binding.rvContacts.adapter = rvAdapter
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -177,10 +174,15 @@ class MarketAdapter(private val context: Context, private val annonceList: List<
 
         var annonce = getItem(position) as Annonce
 
-
+        var  nonV =  annonce.nomAnnonceur
 
         viewHolder.UrlImage.setImageResource(R.drawable.bucati)
-        viewHolder.NomVendeur.text = annonce.NomAnnonceur?.let { createStyledText("  Nom Vendeur :   ", it) }
+        viewHolder.NomVendeur.text = nonV.toString()?.let {
+            createStyledText("  Nom Vendeur :           ",
+                it
+            )
+        }
+
         viewHolder.Prix_article.text = createStyledText("  Prix:           ", annonce.prix.toString() + "$")
         viewHolder.Nom_Produit.text = createStyledText("    ", annonce.nomProduit.toString())
         viewHolder.Telephone_vendeur.text =

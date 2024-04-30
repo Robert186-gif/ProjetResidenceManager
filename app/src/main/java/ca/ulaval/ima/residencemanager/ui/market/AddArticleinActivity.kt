@@ -1,6 +1,7 @@
 package ca.ulaval.ima.residencemanager.ui.market
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.RadioGroup
 import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import ca.ulaval.ima.residencemanager.Annonce
 import ca.ulaval.ima.residencemanager.DataManager
@@ -33,18 +35,31 @@ class AddArticleinActivity : AppCompatActivity() {
     private lateinit var viewModel: MarketViewModel
     var emailDeConnexion: String? = null;
 
+    private var AnnonceList: ArrayList<Annonce>  = ArrayList()
+    private lateinit var  firebaseRef2 : DatabaseReference
+    private lateinit var firebaseDatabaseRefAnnonce: DatabaseReference
+
+
 
     @SuppressLint("MissingInflatedId", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_articlein)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this,R.color.red)))
+        supportActionBar?.title = "Ajouter Votre Article A vendre "
         viewModel = ViewModelProvider(this).get(MarketViewModel::class.java)
 
         firebaseRef = FirebaseDatabase.getInstance().getReference("Etudiant")
         firebaseRefAnonce = FirebaseDatabase.getInstance().getReference("Annonces")
+        firebaseRef2 = FirebaseDatabase.getInstance().getReference("Annonces")
 
         firebaseDatabase = FirebaseDatabase.getInstance()
         databaseReference = firebaseDatabase.getReference("Etudiant")
+
+
+
+
 
         val monBouton = findViewById<Button>(R.id.btnSoumettre)
         var estCocher = "Non"
@@ -113,7 +128,7 @@ class AddArticleinActivity : AppCompatActivity() {
 
             val annonce =
                 Annonce(
-                    NomAnnonceur = DataManager.etudiantCourant?.nom,
+                    nomAnnonceur = DataManager.etudiantCourant?.nom,
                     idDemandeSelec = Random.nextInt(),
                     idAnnonce = emailDeConnexion,
                     nomProduit = nomPorduit,
@@ -130,6 +145,9 @@ class AddArticleinActivity : AppCompatActivity() {
             if (annonce != null) {
                 saveDataEtudiant(annonce)
             }
+            fetchData()
+            Toast.makeText(this, "VOtre Article a bien été Soumis", Toast.LENGTH_LONG).show()
+
         }
         }
         private fun saveDataEtudiant(annonce: Annonce) {
@@ -139,6 +157,30 @@ class AddArticleinActivity : AppCompatActivity() {
               .addOnCompleteListener{
               }
     }
+
+    private fun fetchData() {
+        firebaseRef2.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                AnnonceList.clear()
+                if (snapshot.exists()){
+                    for (contactSnap in snapshot.children){
+                        val contacts = contactSnap.getValue(Annonce::class.java)
+                        AnnonceList.add(contacts!!)
+
+                        Log.w("MyAppTag", "recuperationReussiBIENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN")
+                        contacts.dsecription?.let { Log.w("MyAppTag", it) }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+    }
+
+
 
 
     override fun onSupportNavigateUp(): Boolean {
