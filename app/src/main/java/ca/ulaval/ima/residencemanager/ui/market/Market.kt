@@ -41,6 +41,7 @@ class Market : Fragment() {
 
     private lateinit var AnnonceList: ArrayList<Annonce>
     private lateinit var  firebaseRef : DatabaseReference
+    private lateinit var firebaseDatabaseRefAnnonce: DatabaseReference
 
     companion object {
         fun newInstance() = Market()
@@ -61,6 +62,7 @@ class Market : Fragment() {
         listView.adapter = marquesAdapter
 
         firebaseRef = FirebaseDatabase.getInstance().getReference("Annonces")
+        firebaseDatabaseRefAnnonce = FirebaseDatabase.getInstance().getReference("Annonces")
         AnnonceList = arrayListOf()
         fetchData()
 
@@ -106,6 +108,30 @@ class Market : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MarketViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    private fun getAnnonceDataFromFirebase()
+    {
+        //Recuperer le nom, prénom, numero de chambre et l'email
+        firebaseDatabaseRefAnnonce.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                DataManager.annonceList.clear()
+                if (dataSnapshot.exists()) {
+
+                    for (annonceSnap in dataSnapshot.children) {
+                        val annonce = annonceSnap.getValue(Annonce::class.java)
+                        if (annonce != null) {
+                            DataManager.annonceList.add(annonce)
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Getting Post failed, log a message
+                Log.w("dsads", "loadPost:onCancelled", databaseError.toException())
+            }
+        })
     }
 
 }
