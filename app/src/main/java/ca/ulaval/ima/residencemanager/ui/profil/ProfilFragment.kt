@@ -71,7 +71,6 @@ class  ProfilFragment : Fragment() {
     private lateinit var storageRef : StorageReference
     private lateinit var etudiantList : ArrayList<Etudiant>
     private lateinit var dataList : ArrayList<String>
-    private var uri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -39,6 +39,13 @@ data class Annonce(
     //val  dateMiseEnLigne: LocalDate,
 )
 
+data class Reservation(
+    var nomReserveur: String? = null,
+    var prenomReserveur: String? = null,
+    var email: String? = null,
+    var numeroDeChambreReserve: Int = 0,
+    var dateArrive: String? = null
+)
 
 data class AnnonceActualite(
     val nomEven: String?,

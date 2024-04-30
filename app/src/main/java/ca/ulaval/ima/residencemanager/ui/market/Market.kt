@@ -58,11 +58,10 @@ class Market : Fragment() {
         val addButton: Button = view.findViewById(R.id.btn_ajouter_articl)
 
         listView = view.findViewById(R.id.list_view_annonces)
+        getAnnonceDataFromFirebase()
         val marquesAdapter = MarketAdapter(requireContext(), DataManager.annonceList)
         listView.adapter = marquesAdapter
 
-        firebaseRef = FirebaseDatabase.getInstance().getReference("Annonces")
-        firebaseDatabaseRefAnnonce = FirebaseDatabase.getInstance().getReference("Annonces")
         AnnonceList = arrayListOf()
         fetchData()
 
