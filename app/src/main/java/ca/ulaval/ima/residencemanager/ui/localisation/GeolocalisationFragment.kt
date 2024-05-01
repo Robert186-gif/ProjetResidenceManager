@@ -1,4 +1,4 @@
-package ca.ulaval.ima.residencemanager.ui.paiement
+package ca.ulaval.ima.residencemanager.ui.localisation
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -13,21 +13,18 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import ca.ulaval.ima.residencemanager.R
-import ca.ulaval.ima.residencemanager.databinding.FragmentBailBinding
-import ca.ulaval.ima.residencemanager.databinding.FragmentPaiementBinding
-import ca.ulaval.ima.residencemanager.ui.bail.BailViewModel
 import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import androidx.core.app.ActivityCompat
+import ca.ulaval.ima.residencemanager.databinding.FragmentGeolocalisationBinding
 import java.util.Locale
 
 
-class PaiementFragment : Fragment(),LocationListener  {
-    private var _binding: FragmentPaiementBinding? = null
+class GeolocalisationFragment : Fragment(),LocationListener  {
+    private var _binding: FragmentGeolocalisationBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -40,10 +37,10 @@ class PaiementFragment : Fragment(),LocationListener  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val PaiementViewModel =
-            ViewModelProvider(this).get(PaiementViewModel::class.java)
+        val GeolocalisationViewModel =
+            ViewModelProvider(this).get(GeolocalisationViewModel::class.java)
 
-        _binding = FragmentPaiementBinding.inflate(inflater, container, false)
+        _binding = FragmentGeolocalisationBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         textViewLocalisation = binding.textLocation
