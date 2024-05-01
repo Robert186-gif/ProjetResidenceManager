@@ -320,8 +320,6 @@ class  ProfilFragment : Fragment() {
                         imageRef.downloadUrl.addOnSuccessListener { uri ->
                             val imageUrl = uri.toString()
                             // Do something with the download URL (e.g., save it to a database)
-//                            etudiant = Etudiant(9612, "JORDAN", "JORDAN", "jordankamakwee4@gmail.com",
-//                                imageUrl, "", 0, emptyList(), emptyList())
                             DataManager.etudiantCourant?.urlPhotoEtudiant = imageUrl
 
                             firebaseDatabaseRef.child(DataManager.etudiantCourant?.numCambre.toString()).setValue(DataManager.etudiantCourant)

@@ -2,6 +2,7 @@ package ca.ulaval.ima.residencemanager.ui.market
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -26,12 +27,15 @@ import ca.ulaval.ima.residencemanager.Annonce
 import ca.ulaval.ima.residencemanager.DataManager
 import ca.ulaval.ima.residencemanager.R
 import ca.ulaval.ima.residencemanager.databinding.FragmentMarketBinding
+import coil.load
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 
 class Market : Fragment() {
@@ -136,6 +140,7 @@ class Market : Fragment() {
 
 
 class MarketAdapter(private val context: Context, private val annonceList: List<Annonce>) : BaseAdapter() {
+    private lateinit var storageRef : StorageReference
 
     private class ViewHolder {
         lateinit var UrlImage: ImageView
@@ -176,12 +181,25 @@ class MarketAdapter(private val context: Context, private val annonceList: List<
 
         var  nonV =  annonce.nomAnnonceur
 
-        viewHolder.UrlImage.setImageResource(R.drawable.bucati)
-        viewHolder.NomVendeur.text = nonV.toString()?.let {
-            createStyledText("  Nom Vendeur :           ",
-                it
-            )
-        }
+        storageRef = FirebaseStorage.getInstance().getReference("ImageAnnonces")
+        val imageRef = storageRef.child("/${annonce.imageProduit}")
+
+        // Download the image file
+        val ONE_MEGABYTE = 1024 * 1024.toLong()
+        imageRef.getBytes(ONE_MEGABYTE)
+            .continueWith { task ->
+                val data = task.result
+                BitmapFactory.decodeByteArray(data, 0, data!!.size)
+            }.addOnSuccessListener {bitmap ->
+                viewHolder.UrlImage.load(bitmap)
+            }
+            .addOnFailureListener{
+                viewHolder.UrlImage.setImageResource(R.drawable.ic_menu_gallery)
+            }
+
+        viewHolder.NomVendeur.text = createStyledText("  Nom Vendeur :           ",
+            nonV.toString()
+        )
 
         viewHolder.Prix_article.text = createStyledText("  Prix:           ", annonce.prix.toString() + "$")
         viewHolder.Nom_Produit.text = createStyledText("    ", annonce.nomProduit.toString())

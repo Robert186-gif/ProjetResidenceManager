@@ -13,7 +13,8 @@
         android:layout_width="203dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Ajouter" />
+        android:text="Ajouter"
+        android:backgroundTint="@color/red"/>
 
     <ListView
         android:id="@+id/list_view_annonces"

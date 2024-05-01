@@ -35,7 +35,7 @@
     <Spinner
         android:id="@+id/spinnerChambre"
         android:layout_width="348dp"
-        android:layout_height="46dp"
+        android:layout_height="56dp"
         android:layout_marginBottom="56dp"
         android:backgroundTint="@color/black"
         android:popupBackground="@color/gray_clear"
@@ -63,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="224dp"
         android:text="RESERVER"
+        android:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
