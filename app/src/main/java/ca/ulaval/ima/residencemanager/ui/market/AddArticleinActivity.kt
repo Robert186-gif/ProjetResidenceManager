@@ -37,7 +37,7 @@ class AddArticleinActivity : AppCompatActivity() {
 
     private var AnnonceList: ArrayList<Annonce>  = ArrayList()
     private lateinit var  firebaseRef2 : DatabaseReference
-    private lateinit var firebaseDatabaseRefAnnonce: DatabaseReference
+
 
 
 

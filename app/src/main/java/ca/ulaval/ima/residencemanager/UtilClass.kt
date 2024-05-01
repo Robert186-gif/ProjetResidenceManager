@@ -1,14 +1,10 @@
 package ca.ulaval.ima.residencemanager
 
-import android.os.Parcel
-import android.os.Parcelable
-import java.time.LocalDate
-import java.util.Date
-
 object DataManager {
     var userEmail: String? = null
     var etudiantList : ArrayList<Etudiant> = ArrayList()
     var annonceList : ArrayList<Annonce> = ArrayList()
+    var panneList : ArrayList<Panne> = ArrayList()
     var etudiantCourant : Etudiant? = null
 }
 
@@ -55,12 +51,11 @@ data class AnnonceActualite(
 )
 
 data class Panne(
-    val idPanne: String?,
-    val typePanne: String?,
-    val niveauUrgence: String?,
-    val imagePanne: String?,
-    val dsecription: String?,
-    val  datecreation: LocalDate,
+    val idPanne: String? = null,
+    val typePanne: String? = null,
+    val description: String? = null,
+    val dateCreation: String? = null,
+    val initiateur: String? = null,
 )
 
 

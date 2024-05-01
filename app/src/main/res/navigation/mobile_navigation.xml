@@ -33,7 +33,11 @@
         android:id="@+id/nav_panne"
         android:name="ca.ulaval.ima.residencemanager.ui.panne.PanneFragment"
         android:label="Panne"
-        tools:layout="@layout/fragment_panne" />
+        tools:layout="@layout/fragment_panne" >
+        <action
+            android:id="@+id/action_nav_panne_to_ajoutePanneFragment"
+            app:destination="@id/ajoutePanneFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_reservation"
@@ -46,4 +50,13 @@
         android:name="ca.ulaval.ima.residencemanager.ui.market.Market"
         android:label="Market"
         tools:layout="@layout/fragment_market" />
+    <fragment
+        android:id="@+id/ajoutePanneFragment"
+        android:name="ca.ulaval.ima.residencemanager.ui.panne.AjoutePanneFragment"
+        android:label="fragment_ajoute_panne"
+        tools:layout="@layout/fragment_ajoute_panne" >
+        <action
+            android:id="@+id/action_ajoutePanneFragment_to_nav_panne"
+            app:destination="@id/nav_panne" />
+    </fragment>
 </navigation>
