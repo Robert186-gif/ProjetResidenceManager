@@ -2,6 +2,8 @@ package ca.ulaval.ima.residencemanager.ui.reservation
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -141,6 +143,7 @@ class ReservationFragment : Fragment() {
             val selectedDate = dateArrivee.text.toString()
             reservation.dateArrive = selectedDate
             updateReservationInFireBase(reservation)
+
         }
 
         return root
@@ -189,8 +192,6 @@ class ReservationFragment : Fragment() {
                 Toast.makeText(requireContext(), "Réservation complète!!", Toast.LENGTH_SHORT).show()
             }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()
