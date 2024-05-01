@@ -27,7 +27,9 @@ import ca.ulaval.ima.residencemanager.Annonce
 import ca.ulaval.ima.residencemanager.DataManager
 import ca.ulaval.ima.residencemanager.Etudiant
 import ca.ulaval.ima.residencemanager.R
+import ca.ulaval.ima.residencemanager.connexion.ConnexionActivity
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
+import ca.ulaval.ima.residencemanager.ui.market.AddArticleinActivity
 import coil.load
 import coil.transform.CircleCropTransformation
 import com.canhub.cropper.CropImage
@@ -35,6 +37,7 @@ import com.canhub.cropper.CropImageView.Guidelines
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.tasks.Task
 import com.google.android.material.color.utilities.SchemeFidelity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -50,12 +53,14 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
+import org.checkerframework.checker.units.qual.C
 import java.io.ByteArrayOutputStream
 
 
 class  ProfilFragment : Fragment() {
 
     private var _binding: FragmentProfilBinding? = null
+    private lateinit var firebaseAuth: FirebaseAuth
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -91,23 +96,25 @@ class  ProfilFragment : Fragment() {
         getDataFromFirebase()
 
         userName = binding.textUser
-//        if (etudiantList.size >= 1)
-//        {
-//            profilViewModel.getDataFromEtudiant(DataManager.etudiantCourant!!)
-//        }
-//        else{
-//            profilViewModel.getNothing()
-//        }
-//
-//        profilViewModel.text.observe(viewLifecycleOwner) {
-//            userName.text = it
-//        }
 
         val cameraBtn = binding.cameraBtn
+        val btnDecon = binding.buttonDeconnecter
 
         profileImage = binding.profileImage
 
         storagePermission = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+
+        btnDecon.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(activity, ConnexionActivity::class.java)
+
+            DataManager.panneList.clear()
+            DataManager.annonceList.clear()
+            DataManager.etudiantList.clear()
+            startActivity(intent)
+            activity?.finish()
+        }
 
 
         cameraBtn.setOnClickListener{

@@ -17,6 +17,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Switch
 import android.widget.TextView
@@ -141,13 +142,8 @@ class AddArticleinActivity : AppCompatActivity() {
             val prix = prixString.toIntOrNull()
 
             val radioGroup = findViewById<RadioGroup>(R.id.radioGroupSexe)
-            radioGroup.setOnCheckedChangeListener { group, checkedId ->
-                 estCocher = when (checkedId) {
-                    R.id.radioHomme -> "NON"
-                    R.id.radioFemme -> "OUI"
-                    else -> "NON"
-                }
-            }
+            var check = radioGroup.checkedRadioButtonId
+                estCocher = if (check != -1) findViewById<RadioButton>(check)?.text.toString() else ""
 
 
 

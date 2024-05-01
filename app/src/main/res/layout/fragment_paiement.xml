@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_gravity="center"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.paiement.PaiementFragment">
 
-    <TextView
-        android:id="@+id/textPaiement"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-      />
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/location" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/text_location"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:text="Ma localistion Actuelle "
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/button_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Location" />
+
+
+</LinearLayout>
