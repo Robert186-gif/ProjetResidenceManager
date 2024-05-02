@@ -23,6 +23,7 @@ class AjouterArticleFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_ajouter_article, container, false)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AjouterArticleViewModel::class.java)

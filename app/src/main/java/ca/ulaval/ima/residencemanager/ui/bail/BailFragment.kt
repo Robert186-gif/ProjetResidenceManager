@@ -60,7 +60,7 @@ class BailFragment : Fragment() {
                     // URL deleted
                     Toast.makeText(requireContext(), "Formulaire envoyée", Toast.LENGTH_SHORT).show()
                 }
-                .addOnFailureListener { exception ->
+                .addOnFailureListener {
                     // Handle any errors
                 }
         }

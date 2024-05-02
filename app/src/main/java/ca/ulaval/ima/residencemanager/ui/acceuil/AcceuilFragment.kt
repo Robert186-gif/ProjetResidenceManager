@@ -53,8 +53,8 @@ class AcceuilFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val acceuilViewModel =
-            ViewModelProvider(this).get(AcceuilViewModel::class.java)
+      //  val acceuilViewModel =
+        //    ViewModelProvider(this).get(AcceuilViewModel::class.java)
 
         _binding = FragmentAcceuilBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -62,7 +62,7 @@ class AcceuilFragment : Fragment() {
 
         val calendar: Calendar = Calendar.getInstance()
         calendar.set(2025, Calendar.JANUARY, 5).toString()
-        val date: Date = calendar.time
+ //       val date: Date = calendar.time
         listView = binding.listViewAnnonces
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 

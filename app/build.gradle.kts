@@ -13,7 +13,7 @@ android {
         applicationId = "ca.ulaval.ima.residencemanager"
         minSdk = 21
         targetSdk = 34
-        multiDexEnabled = true
+
         versionCode = 1
         versionName = "1.0"
 
@@ -61,11 +61,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("androidx.multidex:multidex:2.0.1") //enter the latest version
-    implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.karumi:dexter:6.2.3")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("io.coil-kt:coil:2.6.0")
-    implementation("com.vanniktech:android-image-cropper:4.5.0")
-
 }

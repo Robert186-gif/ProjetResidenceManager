@@ -55,9 +55,7 @@ class AjoutePanneFragment : Fragment() {
                 dateCreation = DateSoumisssion
             )
 
-            if (panne != null) {
-                saveDataEtudiant(panne)
-            }
+            saveDataEtudiant(panne)
 
             findNavController().navigate(R.id.action_ajoutePanneFragment_to_nav_panne)
 
@@ -72,6 +70,7 @@ class AjoutePanneFragment : Fragment() {
             }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // TODO: Use the ViewModel

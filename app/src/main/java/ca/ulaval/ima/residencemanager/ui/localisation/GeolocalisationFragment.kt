@@ -37,8 +37,8 @@ class GeolocalisationFragment : Fragment(),LocationListener  {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val GeolocalisationViewModel =
-            ViewModelProvider(this).get(GeolocalisationViewModel::class.java)
+       // val GeolocalisationViewModel =
+         //   ViewModelProvider(this).get(GeolocalisationViewModel::class.java)
 
         _binding = FragmentGeolocalisationBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -51,6 +51,7 @@ class GeolocalisationFragment : Fragment(),LocationListener  {
         return root
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         checkLocationPermission()

@@ -67,7 +67,7 @@ class EnregistrementActivity : AppCompatActivity() {
         val email = binding.idemailtexte.text.toString()
         val prenom = binding.idPreNomText.text.toString()
         //val etudiantId = firebaseRef.push().key!!
-        val etudiantId = numChambre;
+        //val etudiantId = numChambre;
         val etudiant = Etudiant(numChambre, name, prenom , email,"","",0,emptyList(),emptyList());
         firebaseRef.child(numChambre.toString()).setValue(etudiant)
             .addOnCompleteListener{

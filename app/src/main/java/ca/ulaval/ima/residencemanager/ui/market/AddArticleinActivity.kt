@@ -107,7 +107,7 @@ class AddArticleinActivity : AppCompatActivity() {
         val currentDate = calendar.time
         val dateFormat = SimpleDateFormat("dd-MM-yyyy")
         val DateSoumisssion = dateFormat.format(currentDate)
-        val nomVendeur = ""
+        //val nomVendeur = ""
         val description = ""
 
         emailDeConnexion = DataManager.userEmail
@@ -175,9 +175,7 @@ class AddArticleinActivity : AppCompatActivity() {
                     )
 
 
-            if (annonce != null) {
-                saveDataEtudiant(annonce)
-            }
+            saveDataEtudiant(annonce)
             fetchData()
             Toast.makeText(this, "VOtre Article a bien été Soumis", Toast.LENGTH_LONG).show()
 
@@ -185,7 +183,7 @@ class AddArticleinActivity : AppCompatActivity() {
         }
         private fun saveDataEtudiant(annonce: Annonce) {
         val annonceId = firebaseRefAnonce.push().key!!
-        val annoncecode = emailDeConnexion
+        //val annoncecode = emailDeConnexion
         firebaseRefAnonce.child(annonceId).setValue(annonce)
               .addOnCompleteListener{
               }
