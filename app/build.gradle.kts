@@ -66,7 +66,6 @@ dependencies {
     implementation("com.karumi:dexter:6.2.3")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("io.coil-kt:coil:2.6.0")
-    implementation("com.github.Dhaval2404:imagepicker:v2.1")
     implementation("com.vanniktech:android-image-cropper:4.5.0")
 
 }

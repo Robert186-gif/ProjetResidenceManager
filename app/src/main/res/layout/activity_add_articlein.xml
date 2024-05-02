@@ -27,7 +27,7 @@
                 android:layout_width="373dp"
                 android:layout_height="253dp"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/ic_photo_black_48dp" />
+                app:srcCompat="@drawable/ic_menu_camera" />
 
             <TextView
                 android:id="@+id/prenomTexte"

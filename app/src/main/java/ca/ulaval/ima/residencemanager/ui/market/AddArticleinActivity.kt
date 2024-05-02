@@ -14,15 +14,11 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import android.widget.Switch
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import ca.ulaval.ima.residencemanager.Annonce
@@ -63,7 +59,7 @@ class AddArticleinActivity : AppCompatActivity() {
     private lateinit var viewModel: MarketViewModel
     private lateinit var image: ImageView
     private var imageAnnonce: String? = null
-    var emailDeConnexion: String? = null;
+    private var emailDeConnexion: String? = null
 
     private var AnnonceList: ArrayList<Annonce>  = ArrayList()
     private lateinit var  firebaseRef2 : DatabaseReference
@@ -136,9 +132,9 @@ class AddArticleinActivity : AppCompatActivity() {
         monBouton.setOnClickListener {
 
 
-            val nomPorduit = findViewById<EditText>(R.id.text_produit).text.toString() ;
-            val telephone = findViewById<EditText>(R.id.text_telephoneVendeur).text.toString() ;
-            val prixString = findViewById<EditText>(R.id.text_prix).text.toString().trim() ;
+            val nomPorduit = findViewById<EditText>(R.id.text_produit).text.toString()
+            val telephone = findViewById<EditText>(R.id.text_telephoneVendeur).text.toString()
+            val prixString = findViewById<EditText>(R.id.text_prix).text.toString().trim()
             val prix = prixString.toIntOrNull()
 
             val radioGroup = findViewById<RadioGroup>(R.id.radioGroupSexe)
@@ -147,11 +143,11 @@ class AddArticleinActivity : AppCompatActivity() {
 
 
 
-        if (nomPorduit.isNullOrEmpty()) {
+        if (nomPorduit.isEmpty()) {
                Toast.makeText(this, "Veuillez remplir le champs Nom produit", Toast.LENGTH_LONG).show()
             return@setOnClickListener }
 
-        if (telephone.isNullOrEmpty()) {
+        if (telephone.isEmpty()) {
             Toast.makeText(this, "Veuillez remplir le champs telephone", Toast.LENGTH_LONG).show()
             return@setOnClickListener
         }
@@ -189,7 +185,7 @@ class AddArticleinActivity : AppCompatActivity() {
         }
         private fun saveDataEtudiant(annonce: Annonce) {
         val annonceId = firebaseRefAnonce.push().key!!
-        val annoncecode = emailDeConnexion;
+        val annoncecode = emailDeConnexion
         firebaseRefAnonce.child(annonceId).setValue(annonce)
               .addOnCompleteListener{
               }
@@ -317,7 +313,6 @@ class AddArticleinActivity : AppCompatActivity() {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                     val data = baos.toByteArray()
 
-                    var etudiant: Etudiant?
                     imageAnnonce = "${DataManager.userEmail}.jpg"
 
                     // Create a reference to 'images/imageName.jpg'
@@ -329,9 +324,6 @@ class AddArticleinActivity : AppCompatActivity() {
                         // Image uploaded successfully
                         // Get the download URL of the uploaded image
                         imageRef.downloadUrl.addOnSuccessListener { uri ->
-                            val imageUrl = uri.toString()
-                            // Do something with the download URL (e.g., save it to a database)
-                            //DataManager.etudiantCourant?.urlPhotoEtudiant = imageUrl
 
                         }
                             .addOnFailureListener {

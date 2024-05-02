@@ -9,7 +9,6 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -23,20 +22,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import ca.ulaval.ima.residencemanager.Annonce
 import ca.ulaval.ima.residencemanager.DataManager
 import ca.ulaval.ima.residencemanager.Etudiant
 import ca.ulaval.ima.residencemanager.R
 import ca.ulaval.ima.residencemanager.connexion.ConnexionActivity
 import ca.ulaval.ima.residencemanager.databinding.FragmentProfilBinding
-import ca.ulaval.ima.residencemanager.ui.market.AddArticleinActivity
 import coil.load
-import coil.transform.CircleCropTransformation
-import com.canhub.cropper.CropImage
-import com.canhub.cropper.CropImageView.Guidelines
-import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.tasks.Task
-import com.google.android.material.color.utilities.SchemeFidelity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -53,14 +45,12 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
-import org.checkerframework.checker.units.qual.C
 import java.io.ByteArrayOutputStream
 
 
 class  ProfilFragment : Fragment() {
 
     private var _binding: FragmentProfilBinding? = null
-    private lateinit var firebaseAuth: FirebaseAuth
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -312,7 +302,6 @@ class  ProfilFragment : Fragment() {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                     val data = baos.toByteArray()
 
-                    var etudiant: Etudiant?
                     val imageName = "${DataManager.userEmail}.jpg"
 
                     // Create a reference to 'images/imageName.jpg'
@@ -356,7 +345,7 @@ class  ProfilFragment : Fragment() {
 
                     val imageName = "${DataManager.userEmail}.jpg"
 
-                    // Create a reference to 'images/imageName.jpg'
+                    // Create a reference
                     val imageRef = storageRef.child("/$imageName")
 
                     // Upload file to Firebase Storage
@@ -366,9 +355,6 @@ class  ProfilFragment : Fragment() {
                         // Get the download URL of the uploaded image
                         imageRef.downloadUrl.addOnSuccessListener { uri ->
                             val imageUrl = uri.toString()
-                            // Do something with the download URL (e.g., save it to a database)
-//                            etudiant = Etudiant(9612, "JORDAN", "JORDAN", "jordankamakwee4@gmail.com",
-//                                imageUrl, "", 0, emptyList(), emptyList())
                             DataManager.etudiantCourant?.urlPhotoEtudiant = imageUrl
 
                             firebaseDatabaseRef.child(DataManager.etudiantCourant?.numCambre.toString()).setValue(DataManager.etudiantCourant)

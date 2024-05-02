@@ -1,7 +1,6 @@
 package ca.ulaval.ima.residencemanager.ui.bail
 
 import android.os.Bundle
-import android.provider.ContactsContract.RawContacts.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
