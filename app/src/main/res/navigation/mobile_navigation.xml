@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/nav_paiement"
         android:name="ca.ulaval.ima.residencemanager.ui.localisation.GeolocalisationFragment"
-        android:label="Paiement"
+        android:label="Geolocalisation"
         tools:layout="@layout/fragment_geolocalisation" />
 
     <fragment
