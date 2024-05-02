@@ -149,7 +149,6 @@ class  ProfilFragment : Fragment() {
             .addOnSuccessListener {
                 // URL deleted
                 Toast.makeText(requireContext(), "URL deleted", Toast.LENGTH_SHORT).show()
-               // DataManager.etudiantCourant?.urlPhotoEtudiant = "null"
             }
             .addOnFailureListener { exception ->
                 // Handle any errors

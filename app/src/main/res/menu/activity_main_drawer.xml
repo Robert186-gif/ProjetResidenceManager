@@ -7,31 +7,31 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_acceuil"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/icons8_home"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_profil"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_profile"
             android:title="@string/menu_gallery" />
         <item
             android:id="@+id/nav_bail"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_bail"
             android:title="@string/menu_slideshow" />
         <item
             android:id="@+id/nav_paiement"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Paiement" />
+            android:icon="@drawable/ic_location"
+            android:title="Geolocalisation" />
         <item
             android:id="@+id/nav_panne"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_panne"
             android:title="Panne" />
         <item
             android:id="@+id/nav_reservation"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_reservation"
             android:title="Réservation" />
         <item
             android:id="@+id/nav_market"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_market"
             android:title="Market" />
     </group>
 </menu>

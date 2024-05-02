@@ -3,11 +3,8 @@ package ca.ulaval.ima.residencemanager.ui.reservation
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.net.Uri
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,14 +15,13 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import ca.ulaval.ima.residencemanager.DataManager
 import ca.ulaval.ima.residencemanager.Etudiant
 import ca.ulaval.ima.residencemanager.R
 import ca.ulaval.ima.residencemanager.Reservation
-import ca.ulaval.ima.residencemanager.databinding.FragmentPaiementBinding
 import ca.ulaval.ima.residencemanager.databinding.FragmentReservationBinding
-import ca.ulaval.ima.residencemanager.ui.bail.BailViewModel
-import coil.load
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -35,6 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+
 
 class ReservationFragment : Fragment() {
 
@@ -143,7 +140,6 @@ class ReservationFragment : Fragment() {
             val selectedDate = dateArrivee.text.toString()
             reservation.dateArrive = selectedDate
             updateReservationInFireBase(reservation)
-
         }
 
         return root

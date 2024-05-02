@@ -142,7 +142,7 @@ class AddArticleinActivity : AppCompatActivity() {
             val prix = prixString.toIntOrNull()
 
             val radioGroup = findViewById<RadioGroup>(R.id.radioGroupSexe)
-            var check = radioGroup.checkedRadioButtonId
+            val check = radioGroup.checkedRadioButtonId
                 estCocher = if (check != -1) findViewById<RadioButton>(check)?.text.toString() else ""
 
 

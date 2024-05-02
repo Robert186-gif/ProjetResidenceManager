@@ -38,17 +38,18 @@
         <activity
             android:name=".connexion.ConnexionActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ResidenceManager.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ResidenceManager.NoActionBar">
         </activity> <!-- Theme is optional and only needed if default theme has no action bar. -->
         <activity android:name="com.canhub.cropper.CropImageActivity" />
     </application>
